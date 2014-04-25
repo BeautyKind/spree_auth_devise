@@ -24,7 +24,7 @@ class Spree::UserSessionsController < Devise::SessionsController
         format.js {
           render :json => {:user => spree_current_user,
                            :ship_address => spree_current_user.ship_address,
-                           :bill_address => spree_current_user.bill_address}.to_json
+                           :bill_address => spree_current_user.bill_address}.merge(extra_params).to_json
         }
       end
     else
@@ -52,5 +52,9 @@ class Spree::UserSessionsController < Devise::SessionsController
     def redirect_back_or_default(default)
       redirect_to(session["spree_user_return_to"] || default)
       session["spree_user_return_to"] = nil
+    end
+
+    def extra_params
+      {}
     end
 end
