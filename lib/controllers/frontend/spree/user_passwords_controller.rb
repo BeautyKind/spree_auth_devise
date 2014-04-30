@@ -25,7 +25,7 @@ class Spree::UserPasswordsController < Devise::PasswordsController
     if resource.errors.empty?
       respond_to do |format|
         format.html {
-          set_flash_message(:notice, :send_instructions) if is_navigational_format?
+          set_flash_message(:notice, :send_instructions)
           respond_with resource, :location => spree.login_path
         }
         format.js {
