@@ -38,7 +38,7 @@ class Spree::UserPasswordsController < Devise::PasswordsController
           respond_with_navigational(resource) { render :new }
         }
         format.js {
-          render json: { error: t('devise.failure.invalid'), status: :unprocessable_entity }
+          render json: { message: t('devise.failure.invalid') }, status: 402
         }
       end
     end

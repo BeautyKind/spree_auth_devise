@@ -37,8 +37,8 @@ describe Spree::UserPasswordsController do
         it "returns a json with the error" do
           spree_post :create, spree_user: { email: nil }, format: 'js'
           parsed = ActiveSupport::JSON.decode(response.body)
-          expect(parsed).to have_key("error")
-          expect(parsed["error"]).to eq I18n.t('devise.failure.invalid')
+          expect(parsed).to have_key("message")
+          expect(parsed["message"]).to eq I18n.t('devise.failure.invalid')
         end
       end
     end
