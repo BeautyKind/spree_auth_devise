@@ -24,6 +24,9 @@ class Spree::UserRegistrationsController < Devise::RegistrationsController
   def create
     @user = build_resource(spree_user_params)
     if resource.save
+      unless resource.spree_api_key
+        resource.generate_spree_api_key!
+      end
       respond_to do |format|
         format.html {
           set_flash_message(:notice, :signed_up)
