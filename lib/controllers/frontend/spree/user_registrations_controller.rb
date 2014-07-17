@@ -24,12 +24,13 @@ class Spree::UserRegistrationsController < Devise::RegistrationsController
   def create
     @user = build_resource(spree_user_params)
     if resource.save
+      sign_in(:spree_user, @user)
+      session[:spree_user_signup] = true
+      associate_user
+      resource.generate_spree_api_key! unless resource.spree_api_key
       respond_to do |format|
         format.html {
           set_flash_message(:notice, :signed_up)
-          sign_in(:spree_user, @user)
-          session[:spree_user_signup] = true
-          associate_user
           sign_in_and_redirect(:spree_user, @user)
         }
         format.js {
