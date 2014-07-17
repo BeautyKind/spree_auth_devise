@@ -27,9 +27,7 @@ class Spree::UserRegistrationsController < Devise::RegistrationsController
       sign_in(:spree_user, @user)
       session[:spree_user_signup] = true
       associate_user
-      unless resource.spree_api_key
-        resource.generate_spree_api_key!
-      end
+      resource.generate_spree_api_key! unless resource.spree_api_key
       respond_to do |format|
         format.html {
           set_flash_message(:notice, :signed_up)
